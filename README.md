@@ -39,7 +39,7 @@
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/Wesley16838/stuff_assessment.git`
+- Clone this repo to your local machine using `https://github.com/Wesley16838/contact_list.git`
 
 ### Setup
 
