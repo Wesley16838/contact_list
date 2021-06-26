@@ -1,19 +1,21 @@
 import * as React from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { BrowserRouter as Route, Link } from "react-router-dom";
 import { Dispatch } from "redux";
 import * as types from "./../type";
-import { ContactForm } from "../components/ContactForm";
+import ContactForm from "../components/ContactForm";
 import { addContact } from "./../actions/";
 import "./style.scss";
 
 const ContactCreatePage: React.FC = () => {
   const dispatch: Dispatch<any> = useDispatch();
 
-  const addNewContact = React.useCallback(
-    (contact: types.IContact) => dispatch(addContact(contact)),
-    [dispatch]
-  );
+  // const addNewContact = React.useCallback(
+  //   (contact: types.IContact) => dispatch(addContact(contact)),
+  //   [dispatch, addContact]
+  // );
+  const addNewContact = (contact: types.IContact) =>
+    dispatch(addContact(contact));
 
   return (
     <main className="contactCreateWrapper">

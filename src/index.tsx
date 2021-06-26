@@ -1,10 +1,6 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, applyMiddleware, Store } from "redux";
 import { Provider } from "react-redux";
 import App from "./App";
-import * as types from "./type";
-import reducer from "./reducers";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
 

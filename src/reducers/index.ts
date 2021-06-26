@@ -1,4 +1,3 @@
-import { Contact } from "../components/Contact";
 import * as actionTypes from "./../actions/actionTypes";
 import * as types from "./../type";
 

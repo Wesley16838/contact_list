@@ -15,11 +15,7 @@ type Props = {
   id?: string;
 };
 
-export const ContactForm: React.FC<Props> = ({
-  addContact,
-  editContact,
-  id,
-}) => {
+const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
   let history = useHistory();
   const contacts: readonly types.IContact[] = useSelector(
     (state: types.ContactsState) => state.contacts,
@@ -34,20 +30,27 @@ export const ContactForm: React.FC<Props> = ({
   });
 
   const [errorMsg, setErrorMsg] = React.useState("");
+  const [userExist, setUserExist] = React.useState(true);
 
   useEffect(() => {
     if (id) {
-      let contact: any = contacts.find((contact) => {
-        if (contact.id === id) return contact;
-      });
-      setContact({
-        id: contact && contact.id,
-        firstName: contact && contact.firstName,
-        lastName: contact && contact.lastName,
-        email: contact && contact.email,
-        phoneNumber: contact && contact.phoneNumber,
-      });
+      let contact: any = contacts.find(
+        (contact: types.IContact) => contact.id === id
+      );
+      if (contact) {
+        setContact({
+          id: contact && contact.id,
+          firstName: contact && contact.firstName,
+          lastName: contact && contact.lastName,
+          email: contact && contact.email,
+          phoneNumber: contact && contact.phoneNumber,
+        });
+      } else {
+        setUserExist(false);
+        setErrorMsg("Cannot find contact");
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const validateUser = (data: any) => {
@@ -106,56 +109,64 @@ export const ContactForm: React.FC<Props> = ({
   };
 
   return (
-    <form onSubmit={addNewContact} className="addContact">
-      <div className="contactBody">
-        <div className="formSection">
-          <label htmlFor="firstName">First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            placeholder="First Name"
-            onChange={handleContactData}
-            value={contact.firstName}
-          />
-        </div>
-        <div className="formSection">
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            placeholder="Last Name"
-            onChange={handleContactData}
-            value={contact.lastName}
-          />
-        </div>
-        <div className="formSection">
-          <label htmlFor="phoneNumber">Phone Number</label>
-          <input
-            type="text"
-            name="phoneNumber"
-            id="phoneNumber"
-            placeholder="Phone Number"
-            onChange={handleContactData}
-            value={contact.phoneNumber}
-          />
-        </div>
-        <div className="formSection">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            id="email"
-            placeholder="Email"
-            onChange={handleContactData}
-            value={contact.email}
-          />
-        </div>
-      </div>
+    <>
+      {userExist ? (
+        <form onSubmit={addNewContact} className="addContact">
+          <div className="contactBody">
+            <div className="formSection">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="First Name"
+                onChange={handleContactData}
+                value={contact.firstName}
+              />
+            </div>
+            <div className="formSection">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Last Name"
+                onChange={handleContactData}
+                value={contact.lastName}
+              />
+            </div>
+            <div className="formSection">
+              <label htmlFor="phoneNumber">Phone Number</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                id="phoneNumber"
+                placeholder="Phone Number"
+                onChange={handleContactData}
+                value={contact.phoneNumber}
+              />
+            </div>
+            <div className="formSection">
+              <label htmlFor="email">Email</label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="Email"
+                onChange={handleContactData}
+                value={contact.email}
+              />
+            </div>
+          </div>
 
-      <button>{addContact ? "Add Contact" : "Edit Contact"}</button>
-      {errorMsg.length !== 0 && <p className="error">{errorMsg}</p>}
-    </form>
+          <button>{addContact ? "Add Contact" : "Edit Contact"}</button>
+          {errorMsg.length !== 0 && <p className="error">{errorMsg}</p>}
+        </form>
+      ) : (
+        <p className="error">{errorMsg}</p>
+      )}
+    </>
   );
 };
+
+export default React.memo(ContactForm);

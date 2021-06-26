@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, Store } from "redux";
+import { createStore, Store } from "redux";
 import reducer from "../reducers";
 import * as types from "./../type";
 

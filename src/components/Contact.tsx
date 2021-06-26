@@ -1,40 +1,21 @@
 import * as React from "react";
-import { Dispatch } from "redux";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import * as types from "./../type";
 import "./style.scss";
-import profileImg from "./../assets/images/defaultProfileImage.png";
 import images from "./../assets/images";
 
 type Props = {
   contact: types.IContact;
-  removeContact: (contact: types.IContact) => void;
-  editContact: (contact: types.IContact) => void;
+  removeContact: any;
 };
 
-export const Contact: React.FC<Props> = ({
-  contact,
-  removeContact,
-  editContact,
-}) => {
+const Contact: React.FC<Props> = ({ contact, removeContact }) => {
   let history = useHistory();
-  const dispatch: Dispatch<any> = useDispatch();
   const [isActive, setIsActive] = React.useState(false);
   const [isRemove, setIsRemove] = React.useState(false);
 
-  const editContent = React.useCallback(
-    (contact: types.IContact) => dispatch(editContact(contact)),
-    [dispatch, editContact]
-  );
-
-  const deleteContact = React.useCallback(
-    (contact: types.IContact) => dispatch(removeContact(contact)),
-    [dispatch, removeContact]
-  );
-
   const handleOnRemove = () => {
-    deleteContact(contact);
+    removeContact(contact);
     setIsRemove(false);
   };
 
@@ -42,7 +23,7 @@ export const Contact: React.FC<Props> = ({
     <div className="contact">
       <div className="contactBody">
         <div className="profileImage">
-          <img src={images.icons.profileimage.default} alt="Profile Image" />
+          <img src={images.icons.profileimage.default} alt="User" />
         </div>
         <div className="contactInfo">
           <p>
@@ -78,13 +59,15 @@ export const Contact: React.FC<Props> = ({
         <div className="modal">
           <div className="modalContainer">
             <div className="warning">
-              <p>Are you sure you want to delete</p>
               <p>
-                {contact.lastName} {contact.firstName}
+                Are you sure you want to delete {contact.lastName}{" "}
+                {contact.firstName}?
               </p>
+              <p>If you delete it, it will not be recover!</p>
             </div>
             <div className="buttonGroup">
               <button onClick={() => setIsRemove(false)}>Cancal</button>
+              <div />
               <button onClick={handleOnRemove}>Remove</button>
             </div>
           </div>
@@ -93,3 +76,9 @@ export const Contact: React.FC<Props> = ({
     </div>
   );
 };
+function equalFunction(prevProps: any, nextProps: any) {
+  return (
+    JSON.stringify(prevProps.contact) === JSON.stringify(nextProps.contact)
+  );
+}
+export default React.memo(Contact, equalFunction);
