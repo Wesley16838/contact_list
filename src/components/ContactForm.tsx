@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
+import { BrowserRouter as Route, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {
   uuidv4,
@@ -55,11 +56,7 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
 
   const validateUser = (data: any) => {
     for (let i = 0; i < contacts.length; i++) {
-      if (
-        contacts[i].id !== data.id &&
-        contacts[i].phoneNumber === data.phoneNumber
-      )
-        return false;
+      if (contacts[i].id === data.id) return false;
     }
     return true;
   };
@@ -79,7 +76,7 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
     }
   };
 
-  const addNewContact = (e: React.FormEvent) => {
+  const submitContact = (e: React.FormEvent) => {
     e.preventDefault();
     if (
       contact.email.length === 0 ||
@@ -91,19 +88,22 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
     } else {
       if (
         validateEmail(contact.email) &&
-        validatePhoneNumber(contact.phoneNumber) &&
-        validateUser(contact)
+        validatePhoneNumber(contact.phoneNumber)
       ) {
         if (addContact) {
           contact.id = uuidv4();
-          addContact(contact);
+          if (validateUser(contact)) {
+            addContact(contact);
+          } else {
+            setErrorMsg("Contact exist.");
+          }
         }
         if (editContact) {
           editContact(contact);
         }
         history.push("/");
       } else {
-        setErrorMsg("Wrong Format or Contact has already existed!");
+        setErrorMsg("Wrong Format.");
       }
     }
   };
@@ -111,7 +111,7 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
   return (
     <>
       {userExist ? (
-        <form onSubmit={addNewContact} className="addContact">
+        <form onSubmit={submitContact} className="addContact">
           <div className="contactBody">
             <div className="formSection">
               <label htmlFor="firstName">First Name</label>
@@ -119,7 +119,7 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
                 type="text"
                 name="firstName"
                 id="firstName"
-                placeholder="First Name"
+                placeholder="Please Enter"
                 onChange={handleContactData}
                 value={contact.firstName}
               />
@@ -130,7 +130,7 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
                 type="text"
                 name="lastName"
                 id="lastName"
-                placeholder="Last Name"
+                placeholder="Please Enter"
                 onChange={handleContactData}
                 value={contact.lastName}
               />
@@ -141,7 +141,7 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
                 type="text"
                 name="phoneNumber"
                 id="phoneNumber"
-                placeholder="Phone Number"
+                placeholder="Please Enter"
                 onChange={handleContactData}
                 value={contact.phoneNumber}
               />
@@ -152,14 +152,20 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
                 type="text"
                 name="email"
                 id="email"
-                placeholder="Email"
+                placeholder="Please Enter"
                 onChange={handleContactData}
                 value={contact.email}
               />
             </div>
           </div>
 
-          <button>{addContact ? "Add Contact" : "Edit Contact"}</button>
+          <div className="formButton">
+            <Link to="/" className="link">
+              <button className="backButton">Cancel</button>
+            </Link>
+            <button>Confirm</button>
+          </div>
+
           {errorMsg.length !== 0 && <p className="error">{errorMsg}</p>}
         </form>
       ) : (
@@ -169,4 +175,4 @@ const ContactForm: React.FC<Props> = ({ addContact, editContact, id }) => {
   );
 };
 
-export default React.memo(ContactForm);
+export default ContactForm;

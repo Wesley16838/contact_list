@@ -1,10 +1,10 @@
-export interface IContact {
+export type IContact = {
   id: string;
   lastName: string;
   firstName: string;
   phoneNumber: string;
   email: string;
-}
+};
 
 export type ContactsState = {
   contacts: IContact[];

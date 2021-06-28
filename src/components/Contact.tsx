@@ -30,15 +30,11 @@ const Contact: React.FC<Props> = ({ contact, removeContact }) => {
             {contact.lastName} {contact.firstName}
           </p>
           <p>{contact.phoneNumber}</p>
+          <button onClick={() => setIsActive(!isActive)}>
+            {isActive ? "Close" : "Read More"}
+          </button>
         </div>
         <div className="contactBtn">
-          <button onClick={() => setIsActive(!isActive)}>
-            {isActive ? (
-              <img src={images.icons.close_icon.default} alt="Close" />
-            ) : (
-              <img src={images.icons.open_icon.default} alt="Open" />
-            )}
-          </button>
           <button onClick={() => history.push(`/edit/${contact.id}`)}>
             <img src={images.icons.edit_icon.default} alt="Edit" />
           </button>
@@ -63,12 +59,11 @@ const Contact: React.FC<Props> = ({ contact, removeContact }) => {
                 Are you sure you want to delete {contact.lastName}{" "}
                 {contact.firstName}?
               </p>
-              <p>If you delete it, it will not be recover!</p>
+              <p>If you delete it, it will not be recovered.</p>
             </div>
             <div className="buttonGroup">
-              <button onClick={() => setIsRemove(false)}>Cancal</button>
-              <div />
-              <button onClick={handleOnRemove}>Remove</button>
+              <button onClick={() => setIsRemove(false)}>Cancel</button>
+              <button onClick={handleOnRemove}>Delete</button>
             </div>
           </div>
         </div>
@@ -77,8 +72,6 @@ const Contact: React.FC<Props> = ({ contact, removeContact }) => {
   );
 };
 function equalFunction(prevProps: any, nextProps: any) {
-  return (
-    JSON.stringify(prevProps.contact) === JSON.stringify(nextProps.contact)
-  );
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps);
 }
 export default React.memo(Contact, equalFunction);

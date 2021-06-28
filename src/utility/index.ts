@@ -8,7 +8,7 @@ export const uuidv4 = () => {
 
 export const formatPhoneNumber = (value: string) => {
   if (!value) return value;
-  const phoneNumber = value.replace(/[^\d]/g, "");
+  const phoneNumber = value.replace(/[^\d]/g, ""); //non interger here
   const phoneNumberLength = phoneNumber.length;
 
   if (phoneNumberLength < 4) return phoneNumber;
@@ -23,7 +23,7 @@ export const formatPhoneNumber = (value: string) => {
 
 export const validateEmail = (email: string) => {
   const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return regexp.test(email);
+  return regexp.test(email); // regular expression
 };
 
 export const validatePhoneNumber = (phonenumber: string) => {

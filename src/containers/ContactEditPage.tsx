@@ -26,11 +26,10 @@ const ContactEditPage = ({ match }: RouteComponentProps<RouteInfo>) => {
     dispatch(editContact(contact));
   return (
     <main className="contactCreateWrapper">
-      <div className="topBar">
-        <h1>Edit Contact</h1>
-        <Link to="/" className="link">
-          <button className="backButton">Back</button>
-        </Link>
+      <div className="topBarWrapper">
+        <div className="topBar">
+          <h1>Edit Contact</h1>
+        </div>
       </div>
       <div className="contactForm">
         <ContactForm editContact={editcontact} id={contactId} />

@@ -16,21 +16,25 @@ const ContactPage: React.FC = () => {
     shallowEqual
   );
 
-  // use usecallback to prevent re-render
-  const deleteContact = React.useCallback(
-    (contact: types.IContact) => dispatch(removeContact(contact)),
-    [dispatch]
-  );
+  // use usecallback to prevent re-create & re-render
+  // const deleteContact = React.useCallback(
+  //   (contact: types.IContact) => dispatch(removeContact(contact)),
+  //   [dispatch]
+  // );
+  const deleteContact = (contact: types.IContact) =>
+    dispatch(removeContact(contact));
 
   return (
     <main className="contactListWrapper">
-      <div className="topBar">
-        <h1>Contacts</h1>
-        <Link to="/create" className="link">
-          <button className="addButton">
-            <img src={btmImage} alt="add" />
-          </button>
-        </Link>
+      <div className="topBarWrapper">
+        <div className="topBar">
+          <h1>Contacts</h1>
+          <Link to="/create" className="link">
+            <button className="addButton">
+              <img src={btmImage} alt="add" />
+            </button>
+          </Link>
+        </div>
       </div>
 
       <div className="contactList">

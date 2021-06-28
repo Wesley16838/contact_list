@@ -39,7 +39,7 @@ const reducer = (
       };
     case actionTypes.REMOVE_CONTACT:
       const updatedContacts: types.IContact[] = state.contacts.filter(
-        (contact) => contact.phoneNumber !== action.contact.phoneNumber
+        (contact) => contact.id !== action.contact.id
       );
       return {
         ...state,

@@ -3,10 +3,11 @@
   padding: 25px 0px;
   background-color: $BACKGROUND_COLOR_1;
   border-radius: 25px;
-  margin-bottom: 20px;
-  -webkit-box-shadow: -2px 13px 17px -5px rgba(179, 179, 179, 1);
-  -moz-box-shadow: -2px 13px 17px -5px rgba(179, 179, 179, 1);
-  box-shadow: -2px 13px 17px -5px rgba(179, 179, 179, 1);
+  -webkit-box-shadow: -2px 0px 17px -5px rgba(179, 179, 179, 1);
+  -moz-box-shadow: -2px 0px 17px -5px rgba(179, 179, 179, 1);
+  box-shadow: -2px 0px 17px -5px rgba(179, 179, 179, 1);
+  height: fit-content;
+  width: 45%;
   &:last-child {
     margin-bottom: 0px;
   }
@@ -23,8 +24,8 @@
     top: 0px;
     .modalContainer {
       background-color: $BACKGROUND_COLOR_1;
-      width: 300px;
-      height: 200px;
+      width: 375px;
+      height: 225px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -36,22 +37,23 @@
         flex-direction: column;
         justify-content: center;
         height: calc(100% - 60px);
+        text-align: center;
         p {
           margin: 0px;
           &:nth-child(2n + 1) {
             font-weight: $FONT_WEIGHT_HEAVY;
             line-height: 25px;
+            font-size: $FONT_SIZE_MEDIUM;
           }
           &:nth-child(2n) {
             margin-top: 10px;
             color: #bfbfbf;
-            font-size: $FONT_SIZE_SMALL;
+            font-size: $FONT_SIZE_SUPER_SMALL;
           }
         }
       }
     }
     .buttonGroup {
-      background-color: $BACKGROUND_COLOR_3;
       display: flex;
       flex-direction: row;
       width: 100%;
@@ -68,17 +70,19 @@
         border: 0px;
         width: 100%;
         cursor: pointer;
-        background-color: $PRIMARY_COLOR_DEFAULT;
-        color: $PRIMARY_COLOR_WHITE;
+        background-color: $BACKGROUND_COLOR_3;
+        border-top: 1px solid $BACKGROUND_COLOR_5;
         &:hover {
-          background-color: $BACKGROUND_COLOR_1;
-          color: $PRIMARY_COLOR_DEFAULT;
+          background-color: $BACKGROUND_COLOR_4;
         }
         &:nth-of-type(2n + 1) {
           border-bottom-left-radius: 10px;
+          color: $PRIMARY_COLOR_DEFAULT;
+          border-right: 1px solid $BACKGROUND_COLOR_5;
         }
         &:nth-of-type(2n) {
           border-bottom-right-radius: 10px;
+          color: $PRIMARY_COLOR_WARMING;
         }
       }
       div {
@@ -90,7 +94,7 @@
   }
   .contactBody {
     display: grid;
-    grid-template-columns: 150px auto 200px;
+    grid-template-columns: 150px auto 150px;
     align-items: center;
   }
   .contactDetail {
@@ -124,11 +128,29 @@
     flex-direction: column;
     justify-content: center;
     p {
-      margin: 0px;
+      margin: 10px 10px 0px 10px;
       &:nth-child(2n + 1) {
         font-size: $FONT_SIZE_LARGE;
         font-weight: $FONT_WEIGHT_HEAVY;
-        margin-bottom: 10px;
+        color: $PRIMARY_COLOR_TITLE;
+      }
+      &:nth-child(2n) {
+        color: $PRIMARY_COLOR_SUBTITLE;
+      }
+    }
+    button {
+      color: $PRIMARY_COLOR_DEFAULT;
+      background-color: transparent;
+      cursor: pointer;
+      width: fit-content;
+      transition: 0.1s ease;
+      font-size: 14px;
+      margin: 10px;
+      padding: 0px;
+      border: none;
+      border-bottom: $PRIMARY_COLOR_DEFAULT 2px solid;
+      &:hover {
+        opacity: 0.8;
       }
     }
   }
@@ -166,9 +188,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  -webkit-box-shadow: -2px 13px 17px -5px rgba(179, 179, 179, 1);
-  -moz-box-shadow: -2px 13px 17px -5px rgba(179, 179, 179, 1);
-  box-shadow: -2px 13px 17px -5px rgba(179, 179, 179, 1);
+  width: 800px;
+  margin: auto;
+  -webkit-box-shadow: -2px 0px 17px -5px rgba(179, 179, 179, 1);
+  -moz-box-shadow: -2px 0px 17px -5px rgba(179, 179, 179, 1);
+  box-shadow: -2px 0px 17px -5px rgba(179, 179, 179, 1);
+  box-sizing: border-box;
   .contactBody {
     display: grid;
     grid-template-columns: auto auto;
@@ -190,23 +215,47 @@
       outline: none;
     }
   }
-  button {
-    border: none;
-    box-sizing: border-box;
-    background-color: $PRIMARY_COLOR_DEFAULT;
-    color: $PRIMARY_COLOR_WHITE;
-    padding: 10px 15px;
-    border-radius: 25px;
-    transition: 0.1s ease-in;
-    width: 100%;
-    margin-top: 25px;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
+  .formButton {
+    display: flex;
+    flex-direction: row;
+    .link {
+      margin-right: 20px;
+    }
+    button {
+      border: none;
+      box-sizing: border-box;
+      background-color: $PRIMARY_COLOR_DEFAULT;
+      color: $PRIMARY_COLOR_WHITE;
+      padding: 10px 15px;
+      border-radius: 25px;
+      transition: 0.1s ease;
+      width: 150px;
+      margin-top: 25px;
+      cursor: pointer;
+      &:nth-child(2n + 1) {
+        background-color: $BACKGROUND_COLOR_1;
+        color: $PRIMARY_COLOR_DEFAULT;
+        border: 2px solid $PRIMARY_COLOR_DEFAULT;
+        &:hover {
+          background-color: $PRIMARY_COLOR_DEFAULT;
+          color: $PRIMARY_COLOR_WHITE;
+        }
+      }
+      &:hover {
+        background-color: $BACKGROUND_COLOR_1;
+        color: $PRIMARY_COLOR_DEFAULT;
+        border: 2px solid $PRIMARY_COLOR_DEFAULT;
+      }
     }
   }
 }
 
 .error {
   color: $PRIMARY_COLOR_ERROR;
+}
+
+@media (max-width: $BREAKPOINT-LAPTOP) {
+  .addContact {
+    width: 600px;
+  }
 }
